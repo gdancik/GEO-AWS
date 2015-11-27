@@ -17,6 +17,9 @@ $('#gBack').click(function(x){
 		$('#autogenModal').modal('show');
 		});
 	}
+	else{
+	  $('#summaryBSModal').modal('hide');
+	}
 });
 
 $('#downloadSet').click(function(){
