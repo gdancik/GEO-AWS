@@ -379,7 +379,7 @@ clinicalInput <- reactive({
     add.line(code)
     if (TEST.DATA) {
         cat("set p to CLINICAL.test\n")
-	p = CLINICAL.test
+	      p = CLINICAL.test
     } else {
       p = as.data.frame(pData(phenoData(object = dataInput()[[platformIndex()]])))
     }
@@ -450,13 +450,15 @@ ColumnNames <- reactive({
   return(vars)
 })
 
+
 ########################################
 ### Summary of Clinical Data table
 ########################################  
 clinicalDataSummary <- reactive({
   add.tab()
   if (TRACE) cat("In clinicalDataSummary reactive...\n")
-  t = clinicalInput()
+  t = returnClinicalTable()
+  
   if (is.null(t)) {
 	subtract.tab()
 	return(NULL)
