@@ -9,7 +9,7 @@ add = paste0("<p><p> Selected column: <strong>", input$selectedColumn, "</strong
  
 content = paste0(content, add)
     
-  createAlert(session, "mergeGroupsAlert", alertId = "merge-alert", title = "Current Status: Merging", style = "info", content = content)
+  createAlert(session, "mergeGroupsAlert", alertId = "merge-alert", title = "Current Status: Merging", style = "shinygeo-primary", content = content)
  })
 )
 

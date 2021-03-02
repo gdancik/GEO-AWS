@@ -9,7 +9,7 @@ clinicalDataProcessed <- reactive({
 
   p = values.edit$table
   if (is.null(p)) {
-	return(NULL)
+	  return(NULL)
   } 
   #####################################################################
   #  display only columns that have more than one possible value; this
@@ -27,11 +27,11 @@ clinicalDataProcessed <- reactive({
   # keep source_name_ch1 and description 
   keep = colnames(p) %in% c("source_name_ch1", "description")
   if (sum(keep) > 0) {
-	i[keep] = TRUE
+	  i[keep] = TRUE
   }
 
   if (sum(i) <= 1) {
-	i = 1:ncol(p)	
+	  i = 1:ncol(p)	
   }
   p = p[,i, drop = FALSE]
 
@@ -42,9 +42,9 @@ clinicalDataProcessed <- reactive({
 	"supplementary_file", "geo_accession")
   m = match(RM.COLS, colnames(p))
   m=m[!is.na(m)]
-  if (length(m) == ncol(p)) {
-	return(p)
-  } 
+   if (length(m) == ncol(p)) {
+   	  return(p)
+   } 
   
   if (length(m) > 0) p=p[,-m, drop = FALSE]
 
@@ -52,9 +52,10 @@ clinicalDataProcessed <- reactive({
   m = m[!is.na(m)]
 
   if (sum(m) == 0) {
-	values.edit$table = p
-	return (p)
+	  values.edit$table = p
+	  return (p)
   }
+  
   p = p[m,,drop = FALSE]
   
   values.edit$table = p
@@ -131,15 +132,15 @@ observe({
 observe({  # observe needed since data object is a reactive function
   shinycat("observe for clinicalDataSummary reactive...\n") 
 
-  output$clinicalDataSummary <- DT::renderDataTable({ datatable(as.data.frame(clinicalDataSummary()), rownames = TRUE,  
-                                                                 extensions = 'ColReorder',
-                                                                 options = list(#dom = 'Rlfrtip', ajax = list(url = action), 
-                                                                                paging = F,  searchHighlight = TRUE,
-										autoWidth = TRUE, scrollY = "400px"),
-                                                                 filter = 'none', 
-                                                                 selection = 'single') 
-    
-  })
+#   output$clinicalDataSummary <- DT::renderDataTable({ datatable(as.data.frame(clinicalDataSummary()), rownames = TRUE,  
+#                                                                  extensions = 'ColReorder',
+#                                                                  options = list(#dom = 'Rlfrtip', ajax = list(url = action), 
+#                                                                                 paging = F,  searchHighlight = TRUE,
+# 										autoWidth = TRUE, scrollY = "400px"),
+#                                                                  filter = 'none', 
+#                                                                  selection = 'single') 
+#     
+#   })
 
 
   output$clinicalDataSummarySummary <- DT::renderDataTable({ datatable(as.data.frame(clinicalDataSummary()[,-1, drop = FALSE]), rownames = TRUE,  
@@ -175,7 +176,11 @@ observe({  # observe needed since data object is a reactive function
 displayDataTable <-reactive({
   shinycat("in displayDataTable reactive...\n") 
   depend = values.edit$table
-  t = DT::renderDataTable({ datatable(clinicalDataProcessed(), rownames = TRUE,
+  
+  df <- clinicalDataProcessed()
+  df[is.na(df)] <- ""
+  
+  t = DT::renderDataTable({ datatable(df, rownames = TRUE,
        #                                               extensions = 'ColReorder',
                                                       options = list(dom = 'Rlfrtip', #ajax = list(url = action1), 
 								    autoWidth = TRUE,
@@ -184,8 +189,8 @@ displayDataTable <-reactive({
                                                                      paging = F, 
                                                                      searchHighlight = TRUE,
                                                                      columnDefs = list(list(
-                                                                       targets = 1: ncol(clinicalDataProcessed()), # applies to the entire table
-									width = "200px",
+                                                                       targets = "_all",
+                                                                       width = "200px",
                                                                         render = JS(
                                                                          "function(data, type, row, meta) {",
                                                                          "return type == 'display' && data.length > 30 ?",

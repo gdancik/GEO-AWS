@@ -1,3 +1,22 @@
+
+/* shiny dashboard header */
+.navbar, .skin-blue .main-header .logo {
+    background-image: linear-gradient(#04519b,#044687 60%,#033769)
+}
+
+/* customize alerts as shinydashboard changes some defaults */
+
+.alert-shinygeo-primary {
+    color: #004085 !important;
+    background-color:#cce5ff !important;
+    border-color: #b8adff !important;
+}
+
+.alert a {
+    color: black !important;
+}
+
+
 #bar-text{
 font-size: 19px;
 font-family:Verdana;

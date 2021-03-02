@@ -8,7 +8,6 @@ source("ui/ui.tab.reproducible.R")
 source("ui/ui.tab.about.R")
 source("misc/html.R")
 
-
 ## fileUploadBar without label
 fileUploadBar = fileInput('fileUpload', 'select file',
 	                         accept=c('text/csv', 
@@ -26,45 +25,52 @@ gse.input = div(style = "display:inline-block; width: 75%",
 ####################################
 # DE and survival analyses
 ####################################
-analyses.common = conditionalPanel(condition = "input.tabs == 'DifferentialExpressionAnalysis' | input.tabs == 'SurvivalAnalysis'",
-        bsAlert("alert2"),
+analyses.common = conditionalPanel(
+  
+        condition = "input.tabs == 'DifferentialExpressionAnalysis' | input.tabs == 'SurvivalAnalysis'",
+
+         bsAlert("alert2"),
         div(style = "display:inline-block; width: 40%",
          	selectizeInput('selectGenes', "Select Gene/Probe", choices = NULL)
-	),
-
+	      ),
+ 
     div(style = "display:inline-block; width: 25%",
     		a(id = "platLink", "Change Search Feature",
 			#style="cursor:pointer; display:block; margin-bottom:5px;")
 			style="cursor:pointer; display:block; position:relative; bottom:20px;")
     ),
-       bsModal("platformModal", "Platform annotation", 
-                       "platLink", size = "large",
-			selectizeInput('geneColumn', 'Selected Feature', choices = NULL),	
-                       DT::dataTableOutput("platformData")
-        ), 
 
- 
+       bsModal("platformModal", "Platform annotation",
+                       "platLink", size = "large",
+			selectizeInput('geneColumn', 'Selected Feature', choices = NULL),
+                       DT::dataTableOutput("platformData")
+        ),
+
        	div(style = "display:inline-block; width: 35%",
-		conditionalPanel(condition = "input.tabs =='SurvivalAnalysis'",
-            		genBSModal("autogenModal","Survival Analyses","",size="large")
-        	)
-	)
+		        conditionalPanel(condition = "input.tabs =='SurvivalAnalysis'",
+		        HTML("NEED genBSModal for survival analysis")
+		        #genBSModal("autogenModal","Survival Analyses","",size="large")
+        	  )
+	     )
+	
 )
 
 body = dashboardBody(
+    
+  includeCSS('www/ecsu.css'),
+  
   conditionalPanel(condition = "input.tabs != 'About' & input.tabs != 'Code'",
-                   bsAlert("alert1"),
-                   bsAlert("alertU"),
-                   uiOutput("busy")
+                    bsAlert("alert1"),
+                    bsAlert("alertU"),
+                    uiOutput("busy")
                    ),
 
-
   shinyjs::useShinyjs(),
-  summaryBSModal("summaryBSModal","Sample Data","ClinicalDataBtn", size = "large",  
+  summaryBSModal("summaryBSModal","Sample Data","ClinicalDataBtn", size = "large",
 
     tabsetPanel(id = "tabClinicalData",
 	tabPanel("Summary View", DT::dataTableOutput("summaryModalTable")),
-	tabPanel("Standard View",   
+	tabPanel("Standard View",
         DT::dataTableOutput("clinicalData")
 	),
 
@@ -110,16 +116,17 @@ body = dashboardBody(
 		column(4,
 			tags$h4(class="ioTitle","Reset Clinical Data to Original"),
 			hr(),
-			HTML("<button id='ClinicalReset' type='button' class='btn btn-danger action-button'>Reset Clinical Data</button>")		
+			HTML("<button id='ClinicalReset' type='button' class='btn btn-danger action-button'>Reset Clinical Data</button>")
 		)
 	      )
-	   )    
+	   )
    )
  ),
 
-  # please wait conditional panel
-
-  ## originally shiny-busy
+# 
+#   # please wait conditional panel
+# 
+#   ## originally shiny-busy
   conditionalPanel(
 	condition="$('html').hasClass('shiny-busy') & input.tabs == 'Home'",
 
@@ -127,26 +134,23 @@ body = dashboardBody(
 #            img(src="PleaseWait.gif", style = "width:50%")
 #		"Please wait..."
  #      )
-
-
             	    HTML("<div class=\"progress\" style=\"height:25px !important\"><div class=\"progress-bar progress-bar-striped active\" role=\"progressbar\" aria-valuenow=\"40\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width:100%\">
         <span id=\"bar-text\">Loading...</span></div></div>") ),
+
   HTML("<link href='https://fonts.googleapis.com/css?family=Courgette' rel='stylesheet' type='text/css'>"),
 
 
+   analyses.common,
+# 
+    tabItems(
+   #    # First tab content
+       tab.expression,
+       tab.DE.analysis,
+   #   tab.survival.analysis,
+       tab.code,
+       tab.about
+     )
 
-
-
-   analyses.common, 
-
-   tabItems(
-      # First tab content
-      tab.expression,
-      tab.DE.analysis,
-      tab.survival.analysis,
-      tab.code,
-      tab.about
-    )
 )
 
 

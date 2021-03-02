@@ -19,10 +19,11 @@ shinyjs::hide("downloadKM")
 shinyjs::hide("formatDEButton2")
 
 LAST.TAB = "Home"
-       content = HTML("To find a dataset, search the <a href = 'http://www.ncbi.nlm.nih.gov/geo/\'>Gene Expression Omnibus</a> and filter by 'Expression profiling by array'.")
+content = HTML("To find a dataset, search the <a href = 'http://www.ncbi.nlm.nih.gov/geo/\'>Gene Expression Omnibus</a> and filter by 'Expression profiling by array'.")
 
+print('creating alert...')
 createAlert(session, "alert1", alertId = "GSE-begin-alert", 
-            title = "Please select a GSE accession number to begin...", style = "success",
+            title = "Please select a GSE accession number to begin...", style = "shinygeo-primary",
             content = content, append = FALSE, dismiss = FALSE) 
 
 ###################################################
@@ -121,7 +122,8 @@ observeEvent(input$tabs, {
   if (input$tabs == "SurvivalAnalysis") {
 	closeAlert(session, alertId = "SelectGroups")
 	if (input$selectGenes!="" & !KM$generated) {
-	   createAlert(session, "alert1", alertId = "SelectKM", title = "Please select the time/outcome columns to continue...", style = "success",
+	   createAlert(session, "alert1", alertId = "SelectKM", title = "Please select the time/outcome columns to continue...", 
+	               style = "success",
                 content = "Select the time/outcome columns by clicking on the button below")
         }   
   }
@@ -153,7 +155,8 @@ observeEvent(input$selectGenes, {
   closeAlert(session, alertId = "SelectGene-alert")
 
   if (input$tabs == "DifferentialExpressionAnalysis" & is.null(input$Group1Values)) {
-  	  createAlert(session, "alert1", alertId = "SelectGroups", title = "Please select your groups for Differential Expression Analysis to continue...", style = "success",
+  	  createAlert(session, "alert1", alertId = "SelectGroups", title = "Please select your groups for Differential Expression Analysis to continue...", 
+  	              style = "success",
 		content = "<p>You may now select the groups to compare by first selecting the appropriate column, and then the group labels of interest.</p><p> If you do not know which column to select, you may view the clinical data table by clicking the 'View Clinical Data Table' link in the sidebar.You may also merge two or more groups together by clicking the 'Merge Groups' button." )
    } else if (input$tabs == "SurvivalAnalysis" & !KM$generated) {
   	  createAlert(session, "alert1", alertId = "SelectKM", title = "Please select the time/outcome columns to continue...", style = "success",
@@ -174,7 +177,7 @@ observeEvent(input$platform, {
   values.edit$table <- NULL  
   values.edit$platformGeneColumn <- NULL
   values.edit$autogen = TRUE
-})
+}, ignoreInit = TRUE)
 
 
 ####################################
@@ -210,7 +213,6 @@ dataInput <- reactive({
   closeAlert(session, "Error-Update-Alert")
 
   content = "Downloading Series (GSE) data from GEO" 
-# content = HTML("<img src = 'PleaseWait.gif' width=50% height =50%>")
 
    createAlert(session, "alert1", alertId = "GSE-progress-alert", title = "Current Status", style = "success",
               content = content , append = TRUE, dismiss = FALSE) 
@@ -270,7 +272,7 @@ platInfo <- reactive({
 
   closeAlert(session, "GPL-alert")
   if (!TEST.DATA) {
-    createAlert(session, "alert1", alertId = "GPL-alert", title = "Current Status", style = "info",
+    createAlert(session, "alert1", alertId = "GPL-alert", title = "Current Status", style = "shinygeo-primary",
               content = "Downloading platform (GPL) data from GEO", append = TRUE, dismiss = FALSE) 
   }
   a = isolate(Platforms())
@@ -300,10 +302,12 @@ geneNames <- reactive ({
   plat.info = platInfo()
 
   if (is.null(plat.info)) {
-	return (NULL)
+	  return (NULL)
   }
 
   gene.column = values.edit$platformGeneColumn
+  cat('gene.column = ', gene.column, '\n')
+  
   if (is.null(gene.column)) {
     check.names = toupper(c("Gene Symbol", "GeneSymbol", 
 				"Gene_Symbol","Gene", "Symbol"))
@@ -384,7 +388,7 @@ groupsForSelectedColumn <- reactive({
   shinycat("In groupsForSelectedColumn reactive...\n")
   vars = values.edit$table
   if (is.null(vars) | is.null(input$selectedColumn)) {
-	return(NULL)   
+	  return(NULL)   
   }
   
   vars <- vars[, as.character(input$selectedColumn)] 

@@ -147,9 +147,11 @@ observe ({
     pl.accession = platforms.accession[keep]
     pl.description = platforms.description[keep]
     if (length(pl.accession) == 1) {
-      pl.selected = pl.accession
-      shinyjs::disable('platform')
-      choices = pl.selected
+      # updating selectizeInput can trigger an infinite reactive loop
+      # let's just hide it
+      shinyjs::hide('platform')
+      return(NULL)
+      
     } else {
       pl.selected = FALSE
       choices = data.frame(label = pl.accession, value = pl.accession, 
@@ -171,7 +173,7 @@ observe ({
                choices = choices,
                selected = pl.selected,
                options = pl.options 
-)
+  )
 
   if (!is.null(pl)) {
 	 d = dataInput()
@@ -204,6 +206,7 @@ observe ({
 
 updateSelectizeInput(session, inputId='GSE', label = "Accession Number", server = TRUE,
     choices =  data.frame(label = series.accession, value = series.accession, name = series.description),
+    selected = "GSE3524",
     options = list(
       #create = TRUE, persist = FALSE,
       render = I(
@@ -215,7 +218,6 @@ updateSelectizeInput(session, inputId='GSE', label = "Accession Number", server 
       }"
     ))
 )
-
 
 ################################################
 ### Renders drop-down menu for variables/columns 
