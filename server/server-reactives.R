@@ -21,7 +21,6 @@ shinyjs::hide("formatDEButton2")
 LAST.TAB = "Home"
 content = HTML("To find a dataset, search the <a href = 'http://www.ncbi.nlm.nih.gov/geo/\'>Gene Expression Omnibus</a> and filter by 'Expression profiling by array'.")
 
-print('creating alert...')
 createAlert(session, "alert1", alertId = "GSE-begin-alert", 
             title = "Please select a GSE accession number to begin...", style = "shinygeo-primary",
             content = content, append = FALSE, dismiss = FALSE) 
@@ -194,12 +193,8 @@ dataInput <- reactive({
   # Runs the intial input once the button is pressed from within the 
   # reactive statement
 
-  if (TEST.DATA) {
-	return (GEO.test)
-  }
-
   if (is.null(isolate(input$GSE))) {
-	return(NULL)
+	  return(NULL)
   }
   GSE = isolate(input$GSE)   
   if (GSE=="") return(NULL)
@@ -217,7 +212,7 @@ dataInput <- reactive({
    createAlert(session, "alert1", alertId = "GSE-progress-alert", title = "Current Status", style = "success",
               content = content , append = TRUE, dismiss = FALSE) 
 
-    geo = try(getGEO(GEO = isolate(GSE), AnnotGPL=FALSE, getGPL = FALSE), silent = TRUE)
+    geo = try(getGEO(GEO = isolate(GSE), destdir = TEMPDIR, AnnotGPL=FALSE, getGPL = FALSE), silent = TRUE)
 
     if (class(geo) == "try-error") {
         content = "This is typically an indication that the GEO data is not in the correct format. Please select another dataset to continue. <p><p>The specific error appears below:<p>"
@@ -250,9 +245,7 @@ Platforms <- reactive({
 platformIndex <- reactive({
 #  input$submitPlatform
   shinycat("In platformIndex reactive...\n")
-  if (TEST.DATA) {
-	return(1)
-  }
+  
   if (is.null(dataInput()) | length(isolate(input$platform)) ==0) {
     return(NULL)
   }
@@ -271,19 +264,13 @@ platInfo <- reactive({
   if (is.null(Platforms()) | is.null(platformIndex())) return (NULL)
 
   closeAlert(session, "GPL-alert")
-  if (!TEST.DATA) {
-    createAlert(session, "alert1", alertId = "GPL-alert", title = "Current Status", style = "shinygeo-primary",
+  createAlert(session, "alert1", alertId = "GPL-alert", title = "Current Status", style = "shinygeo-primary",
               content = "Downloading platform (GPL) data from GEO", append = TRUE, dismiss = FALSE) 
-  }
+  
   a = isolate(Platforms())
   b = isolate(platformIndex())
 
-  t = NULL
-  if (TEST.DATA) {
-	t = GPL.test
-  } else {
-    t = Table(getGEO(Platforms()[platformIndex()]))
-  }
+  t = Table(getGEO(Platforms()[platformIndex()], destdir = TEMPDIR))
   
   k = t[,"ID"]
   common.probes = intersect(row.names(exprInput()), as.character(k))
@@ -358,11 +345,7 @@ observe({
 
   # only update table if values.edit$table is null
   if (is.null(values.edit$table)) {
-    if (TEST.DATA) {
-        values.edit$table = CLINICAL.test
-    } else {
       values.edit$table = as.data.frame(pData(phenoData(object = dataInput()[[platformIndex()]])))
-    }
   }
 })
 

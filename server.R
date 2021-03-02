@@ -1,18 +1,4 @@
-TRACE <- TRUE 
-ALLOW_UPDATE <- TRUE ## flag for update button display
-
-shinycat <<-function(...) {
-	if (TRACE) cat(...)
-}
-shinyprint <<-function(...) print(...)
-
-wait <- function(msg = "Click to continue...") {
-  print(msg)
-  #s <- scan(what =  "character", n = 1)
-}
-
 shinycat("begin source server.R\n")
-source("server/settings.R")
 
 library(DT) 
 library(shiny)
