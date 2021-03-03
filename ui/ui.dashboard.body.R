@@ -8,6 +8,7 @@ source("ui/ui.tab.reproducible.R")
 source("ui/ui.tab.about.R")
 source("misc/html.R")
 
+
 ## fileUploadBar without label
 fileUploadBar = fileInput('fileUpload', 'select file',
 	                         accept=c('text/csv', 
@@ -57,8 +58,6 @@ analyses.common = conditionalPanel(
 
 body = dashboardBody(
     
-  includeCSS('www/ecsu.css'),
-  
   conditionalPanel(condition = "input.tabs != 'About' & input.tabs != 'Code'",
                     bsAlert("alert1"),
                     bsAlert("alertU"),

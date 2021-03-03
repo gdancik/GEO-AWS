@@ -10,5 +10,5 @@ shinyprint <-function(...) print(...)
 
 wait <- function(msg = "Click to continue...") {
   print(msg)
-  #s <- scan(what =  "character", n = 1)
+  s <- scan(what =  "character", n = 1)
 }

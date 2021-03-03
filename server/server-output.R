@@ -185,11 +185,9 @@ observe ({
 
   	x = paste(x, collapse = "<br>")
 
-	if (!TEST.DATA) {
-    	createAlert(session, "alert1", alertId = "GPL-alert", 
+    createAlert(session, "alert1", alertId = "GPL-alert", 
 		title = "Please select a platform to continue", 
 		style = "success", content = x, append = TRUE, dismiss = FALSE) 
-  	}
   }
 })
 

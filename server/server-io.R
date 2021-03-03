@@ -5,11 +5,7 @@ createAlert(session,"ioAlert1",
 
 
 shinyjs::onclick("ClinicalReset", {
-  if (TEST.DATA) {
-        values.edit$table <- CLINICAL.test
-    } else {
-      values.edit$table <- as.data.frame(pData(phenoData(object = dataInput()[[platformIndex()]])))
-    }
+  values.edit$table <- as.data.frame(pData(phenoData(object = dataInput()[[platformIndex()]])))
   createAlert(session, "ioAlert2", content = "<h4>Clinical Data has been reset</h4>", style = "success", dismiss = FALSE, append = FALSE)
 
   closeAlert(session, "selectionAlert2")

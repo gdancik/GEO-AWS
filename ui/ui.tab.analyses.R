@@ -41,6 +41,7 @@ conditionalPanel(condition = "input.selectGenes!=''",
     )
    ),
     formatBSModal("Format", "Format", "formatDEButton", applyID = "applyFormatDE", size = "large",
+                   static = TRUE,
         htmlOutput("formatDE")#, hr(),               
     )
 )

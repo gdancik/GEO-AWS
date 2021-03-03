@@ -6,9 +6,9 @@
 ## MODAL SECTION
 ##
 ## formatBSModal - equivalent to shinyBS::bsModal except we add a Save 
-## 	Changes button with id = applyID next to the Close button
-## 	shinyBSDep is not found, so last line is commented out. This does
-## 	not appear to have an effect
+## 	Changes button with id = applyID next to the Close button, and
+##  the option to make the modal static (in Firefox, non-static modal
+##  will close when drop down extends past modal border)
 ##
 ## genBSModal - equivalent to shinyBS::bsModal except custom buttons for 
 ## 	generation of survival analysis
@@ -17,37 +17,20 @@
 ## bsModalNoClose - No close button 
 ##########################################################################
 
-formatBSModal<-function (id, title, trigger, applyID, ..., size) 
+formatBSModal <- function (id, title, trigger, applyID, ..., size, static = FALSE) 
 {
-  if (!missing(size)) {
-    if (size == "large") {
-      size = "modal-lg"
-    }
-    else if (size == "small") {
-      size = "modal-sm"
-    }
-    size <- paste("modal-dialog", size)
+  b <- bsModal(id = id, title = title, trigger = trigger, ..., size = size)
+  b
+  if (static) {
+    b$attribs$`data-backdrop` = 'static'
   }
-  else {
-    size <- "modal-dialog"
-  }
-  bsTag <- shiny::tags$div(class = "modal sbs-modal fade", 
-              id = id, tabindex = "-1", `data-sbs-trigger` = trigger, 
-              shiny::tags$div(class = size, 
-                shiny::tags$div(class = "modal-content", 
-                  shiny::tags$div(class = "modal-header", 
-                    shiny::tags$button(type = "button",  class = "close", `data-dismiss` = "modal", shiny::tags$span(shiny::HTML("&times;"))), 
-                      shiny::tags$h4(class = "modal-title", title)
-                  ), 
-                  shiny::tags$div(class = "modal-body", list(...)), 
-                  shiny::tags$div(class = "modal-footer", 
-                    shiny::tags$button(type = "button", class = "btn btn-default", `data-dismiss` = "modal", "Close"),
-                      actionButton(applyID, "Save Changes", class = "btn-primary")    
-                  )      
-                )
-              )
-  )
-  #htmltools::attachDependencies(bsTag, shinyBSDep)
+  
+  #add Save button to modal footer
+  footer <- b$children[[1]]$children[[1]]$children[[3]]$children
+  footer <- list(footer, actionButton(applyID, "Save Changes", class = "btn-primary"))
+  b$children[[1]]$children[[1]]$children[[3]]$children <- footer
+  
+  b
 }
 
 
