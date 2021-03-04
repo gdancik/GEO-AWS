@@ -31,17 +31,8 @@ ui/ui.tab.analyses.R
 ui/ui.tab.expression.R
 ui/ui.tab.reproducible.R
 
-www/PleaseWait.gif
 www/bootstrap.css
 www/ecsu.css
 www/ecsu.js
-www/AdminLTE/AdminLTE.css
-www/AdminLTE/AdminLTE.min.css
-www/AdminLTE/_all-skins.css
-www/AdminLTE/_all-skins.min.css
-www/AdminLTE/app.js
-www/AdminLTE/app.min.js
-www/AdminLTE/app.min.js.map
-
 
 

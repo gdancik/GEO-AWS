@@ -209,7 +209,7 @@ dataInput <- reactive({
 
   content = "Downloading Series (GSE) data from GEO" 
 
-   createAlert(session, "alert1", alertId = "GSE-progress-alert", title = "Current Status", style = "shinygeo-success",
+   createAlert(session, "alert1", alertId = "GSE-progress-alert", title = "Current Status", style = "shinygeo-primary",
               content = content , append = TRUE, dismiss = FALSE) 
 
     geo = try(getGEO(GEO = isolate(GSE), destdir = TEMPDIR, AnnotGPL=FALSE, getGPL = FALSE), silent = TRUE)
@@ -264,7 +264,7 @@ platInfo <- reactive({
   if (is.null(Platforms()) | is.null(platformIndex())) return (NULL)
 
   closeAlert(session, "GPL-alert")
-  createAlert(session, "alert1", alertId = "GPL-alert", title = "Current Status", style = "shinygeo-success",
+  createAlert(session, "alert1", alertId = "GPL-alert", title = "Current Status", style = "shinygeo-primary",
               content = "Downloading platform (GPL) data from GEO", append = TRUE, dismiss = FALSE) 
   
   a = isolate(Platforms())
