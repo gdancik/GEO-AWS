@@ -54,7 +54,7 @@ conditionalPanel(condition = "input.selectGenes!=''",
 tab.survival.analysis = tabItem("SurvivalAnalysis", 
   conditionalPanel(condition = "input.selectGenes!=''",
         summaryBSModal("summaryBSModal","Clinical Data Summary",""),
-        bsButton("autoAnalysis","Select Time/Outcome", style="success",disabled = TRUE),
+        bsButton("autoAnalysis","Select Time/Outcome", style="shinygeo-success",disabled = TRUE),
         actionButton("formatDEButton2", "Format Graph",disabled=TRUE), # add on
         downloadButton('downloadKM', 'Export Graph Data'), 
         HTML("<button id='Survadd' type='button' class='btn btn-info action-button'>Save R Code</button>"),                                   

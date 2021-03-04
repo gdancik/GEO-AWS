@@ -29,7 +29,7 @@ output$summary <-renderUI({
 	return(NULL)
   }
 
-  createAlert(session, "alert1", alertId = "Analysis-alert", title = "Please choose an analysis from the sidebar to continue...", style = "success",
+  createAlert(session, "alert1", alertId = "Analysis-alert", title = "Please choose an analysis from the sidebar to continue...", style = "shinygeo-success",
                content = "Your selected dataset has been downloaded successfully, and is summarized below. <p>Please select either <b>Differential Expression Analysis</b> or <b>Survival Analysis</b> from the sidebar to continue.</p>", append = FALSE, dismiss = TRUE) 
 
 
@@ -187,7 +187,7 @@ observe ({
 
     createAlert(session, "alert1", alertId = "GPL-alert", 
 		title = "Please select a platform to continue", 
-		style = "success", content = x, append = TRUE, dismiss = FALSE) 
+		style = "shinygeo-success", content = x, append = TRUE, dismiss = FALSE) 
   }
 })
 

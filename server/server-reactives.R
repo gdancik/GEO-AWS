@@ -22,7 +22,7 @@ LAST.TAB = "Home"
 content = HTML("To find a dataset, search the <a href = 'http://www.ncbi.nlm.nih.gov/geo/\'>Gene Expression Omnibus</a> and filter by 'Expression profiling by array'.")
 
 createAlert(session, "alert1", alertId = "GSE-begin-alert", 
-            title = "Please select a GSE accession number to begin...", style = "shinygeo-primary",
+            title = "Please select a GSE accession number to begin...", style = "shinygeo-success",
             content = content, append = FALSE, dismiss = FALSE) 
 
 ###################################################
@@ -106,14 +106,14 @@ observeEvent(input$tabs, {
   	if (input$selectGenes == "") {
 	  createAlert(session, "alert1", alertId = "SelectGene-alert", 
 		title = "Please select a probe/gene to continue...", 
-		style = "success",
+		style = "shinygeo-success",
               	content = "To search by a different feature, click on the link below", 
 		append = FALSE, dismiss = TRUE) 
 	  if(values.edit$platformGeneColumn=="ID") {
 		content = paste0("A gene symbol for this platform could not be found. ",
 		"You may view the platform data below to select a feature column if desired") 
 		createAlert(session, "alert2", alertId = "geneSymbolAlert", 
-			title = "Gene symbol not found", style = "danger",
+			title = "Gene symbol not found", style = "shinygeo-danger",
 	  		content = content, append = FALSE, dismiss = TRUE)
 	   }
         }
@@ -122,7 +122,7 @@ observeEvent(input$tabs, {
 	closeAlert(session, alertId = "SelectGroups")
 	if (input$selectGenes!="" & !KM$generated) {
 	   createAlert(session, "alert1", alertId = "SelectKM", title = "Please select the time/outcome columns to continue...", 
-	               style = "success",
+	               style = "shinygeo-success",
                 content = "Select the time/outcome columns by clicking on the button below")
         }   
   }
@@ -155,10 +155,10 @@ observeEvent(input$selectGenes, {
 
   if (input$tabs == "DifferentialExpressionAnalysis" & is.null(input$Group1Values)) {
   	  createAlert(session, "alert1", alertId = "SelectGroups", title = "Please select your groups for Differential Expression Analysis to continue...", 
-  	              style = "success",
+  	              style = "shinygeo-success",
 		content = "<p>You may now select the groups to compare by first selecting the appropriate column, and then the group labels of interest.</p><p> If you do not know which column to select, you may view the clinical data table by clicking the 'View Clinical Data Table' link in the sidebar.You may also merge two or more groups together by clicking the 'Merge Groups' button." )
    } else if (input$tabs == "SurvivalAnalysis" & !KM$generated) {
-  	  createAlert(session, "alert1", alertId = "SelectKM", title = "Please select the time/outcome columns to continue...", style = "success",
+  	  createAlert(session, "alert1", alertId = "SelectKM", title = "Please select the time/outcome columns to continue...", style = "shinygeo-success",
 		content = "Select the time/outcome columns by clicking on the button below")
    }
 })
@@ -209,7 +209,7 @@ dataInput <- reactive({
 
   content = "Downloading Series (GSE) data from GEO" 
 
-   createAlert(session, "alert1", alertId = "GSE-progress-alert", title = "Current Status", style = "success",
+   createAlert(session, "alert1", alertId = "GSE-progress-alert", title = "Current Status", style = "shinygeo-success",
               content = content , append = TRUE, dismiss = FALSE) 
 
     geo = try(getGEO(GEO = isolate(GSE), destdir = TEMPDIR, AnnotGPL=FALSE, getGPL = FALSE), silent = TRUE)
@@ -217,7 +217,7 @@ dataInput <- reactive({
     if (class(geo) == "try-error") {
         content = "This is typically an indication that the GEO data is not in the correct format. Please select another dataset to continue. <p><p>The specific error appears below:<p>"
 	content = paste0(content,  gsub("\n", "<p>",geo[[1]]))
-	createAlert(session, "alert1", alertId = "GSE-error-alert", title = "Error downloading GEO dataset", style = "danger", content = content, append = FALSE, dismiss = TRUE)
+	createAlert(session, "alert1", alertId = "GSE-error-alert", title = "Error downloading GEO dataset", style = "shinygeo-danger", content = content, append = FALSE, dismiss = TRUE)
 	return(NULL) 
     }
 
@@ -264,7 +264,7 @@ platInfo <- reactive({
   if (is.null(Platforms()) | is.null(platformIndex())) return (NULL)
 
   closeAlert(session, "GPL-alert")
-  createAlert(session, "alert1", alertId = "GPL-alert", title = "Current Status", style = "shinygeo-primary",
+  createAlert(session, "alert1", alertId = "GPL-alert", title = "Current Status", style = "shinygeo-success",
               content = "Downloading platform (GPL) data from GEO", append = TRUE, dismiss = FALSE) 
   
   a = isolate(Platforms())
@@ -458,7 +458,7 @@ output$downloadDE <- downloadHandler(
 	file = gsub(":", "-",file)
 	file = gsub(" ", "_",file)
   msg = paste0("<H4>Differential Expression Data Exported</H4><p> The expression and grouping data has been downloaded to the following file in your Downloads folder: <b>", file, "</p>")
-  createAlert(session,"alert2",content = msg, style="success",dismiss=TRUE, append = TRUE)
+  createAlert(session,"alert2",content = msg, style="shinygeo-success",dismiss=TRUE, append = TRUE)
         return(file)
 },
 
@@ -484,7 +484,7 @@ output$downloadKM <- downloadHandler(
 	file = gsub(":", "-",file)
 	file = gsub(" ", "_",file)
   msg = paste0("<H4>Survival Data Exported</H4><p> The expression and survival data has been downloaded to the following file in your Downloads folder: <b>", file, "</b></p>")
-  createAlert(session,"alert2",content = msg, style="success",dismiss=TRUE, append = TRUE)
+  createAlert(session,"alert2",content = msg, style="shinygeo-success",dismiss=TRUE, append = TRUE)
         return(file)
 },
 

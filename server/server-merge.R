@@ -5,7 +5,7 @@
 observeEvent(input$mergeGroupsButton, ({
   closeAlert(session, "merge-alert")
   content = "Merge two or more groups together by selecting the groups from the drop-down boxes on the left, and specifying a name for the new group in the corresponding text boxes on the right. Click on Save, and a new column will be added to the clinical data table."
-add = paste0("<p><p> Selected column: <strong>", input$selectedColumn, "</strong></p>.")
+    add = paste0("<p><p> Selected column: <strong>", input$selectedColumn, "</strong></p>")
  
 content = paste0(content, add)
     
@@ -74,7 +74,7 @@ observeEvent(input$applyMergeGroups, ({
   }
 
   if (content!= "") {
-  createAlert(session, "mergeGroupsAlert", alertId = "merge-alert-error", title = "Save Error", style = "danger", content = content, append = TRUE)
+  createAlert(session, "mergeGroupsAlert", alertId = "merge-alert-error", title = "Save Error", style = "shinygeo-danger", content = content, append = TRUE)
     return(NULL)
   }
 
@@ -99,7 +99,7 @@ observeEvent(input$applyMergeGroups, ({
   }
 
   if(length(unique(Y)) <= 1) {
-     createAlert(session, "mergeGroupsAlert", alertId = "merge-alert-error", title = "Save Error", style = "danger", content = "<p> Error: this merge would create a column where all values are the same. This operation is currently not supported" , append = TRUE)
+     createAlert(session, "mergeGroupsAlert", alertId = "merge-alert-error", title = "Save Error", style = "shinygeo-danger", content = "<p> Error: this merge would create a column where all values are the same. This operation is currently not supported" , append = TRUE)
     return(NULL)
   } 
 

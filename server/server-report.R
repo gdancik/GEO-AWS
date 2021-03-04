@@ -13,21 +13,6 @@ observeEvent(reproducible$report, {
                   mode = "markdown", theme = "chrome")
 })
 
-observeEvent(input$reportBtn, {
-      shinycat("generating report...\n")
-      test.file = "reports/test.R"
-      createAlert(session, "reportAlert", alertId = "report-alert", title = "Generating Report...", 
-	style = "info", content = "Your report is being generated (this may take 1-2 minutes)", 
-	dismiss = FALSE) 
-      write(reproducible$report, file = test.file)
-      rmarkdown::render(test.file)
-      createAlert(session, "reportAlert", alertId = "report-alert2", title = "Generating Report...", 
-	style = "success", content = "Your report has been generated", append = FALSE, 
-	dismiss = FALSE)
-      toggleModal(session, "reportModal", "close")
-      system("open reports/test.html")
- 
-})
 
 #########################################################
 # profiles() or CODE$expression.code will trigger report
@@ -119,8 +104,9 @@ quote.it <-function(x) paste0("\"", x, "\"")
 observeEvent(input$DEadd, {
   shinycat("Add DE code to report...\n")
 
-createAlert(session, "alert2", title = "", style = "success",
-            content = "<H4>R Code Generation</H4><p> R Code for Differential Expression Analysis has been added to the <i> Code </i> page </p>", append = TRUE, dismiss = TRUE) 
+showNotification(HTML("<H4>R Code Generation</H4><p> R Code for Differential Expression Analysis has been added to the <i> Code </i> page </p>"), 
+                 duration = 4, 
+                 type = 'message')
 
 if (!CODE$stripchart.loaded) {
   s2function = scan(file = "misc/stripchart2.R", what = character(), sep = "\n")
@@ -173,9 +159,11 @@ add.code(s3plot)
 observeEvent(input$Survadd, {
   shinycat("Add survival code to report...\n")
 
-  createAlert(session, "alert2", title = "", style = "success",
-            content = "<H4>R Code Generation</H4><p> R Code for Survival Analysis has been added to the <i> Code </i> page </p>", append = TRUE, dismiss = TRUE) 
-   if (!CODE$plot.km.loaded) {
+  showNotification(HTML("<H4>R Code Generation</H4><p> R Code for Survival Analysis has been added to the <i> Code </i> page </p>"), 
+                   duration = 4, 
+                   type = 'message')
+  
+     if (!CODE$plot.km.loaded) {
      kmfunction = scan(file = "misc/plot.shiny.km.R", what = character(), sep = "\n")
      sapply(kmfunction, add.code)
      CODE$plot.km.loaded = TRUE

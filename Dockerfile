@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
 # basic shiny functionality
-RUN R -e "install.packages(c('shiny','DT', 'ggplot2', 'reshape2', 'survival', 'shinyBS', 'GGally', 'shinyAce', 'knitr', 'rmarkdown', 'RCurl', 'shinyjs', 'survMisc', 'shinydashboard'), repos='https://cloud.r-project.org/')" \
+RUN R -e "install.packages(c('shiny','DT', 'ggplot2', 'reshape2', 'survival', 'shinyBS', 'GGally', 'shinyAce', 'RCurl', 'shinyjs', 'survMisc', 'shinydashboard'), repos='https://cloud.r-project.org/')" \
 
 RUN R -e "source('https://bioconductor.org/biocLite.R'); biocLite('GEOquery')" \
 RUN rm -rf /tmp/downloaded_packages/ /tmp/*.rds

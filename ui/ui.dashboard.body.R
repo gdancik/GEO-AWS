@@ -75,14 +75,14 @@ body = dashboardBody(
 
 	# sample selection
 	tabPanel("Sample Selection",
-  	      fluidRow(
+  	      fluidRow(br(),
 		column(12, bsAlert("selectionAlert1"))
 	      ),
 
 	      fluidRow(
       		column(4, uiOutput("SampleSelectionCol1")),
       		column(4, uiOutput("SampleSelection1")),
-		column(4, HTML("<br><button id='btnSelection' type='button' class='btn btn-info action-button'>Apply Selection Criteria</button>"))
+		column(4, HTML("<br><button id='btnSelection' type='button' class='btn btn-primary action-button'>Apply Selection Criteria</button>"))
     	      ),
     	      fluidRow(
       		column(4, uiOutput("SampleSelectionCol2")),

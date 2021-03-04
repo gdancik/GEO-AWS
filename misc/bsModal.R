@@ -59,7 +59,7 @@ genBSModal<-function (id, title, trigger, ..., size)
                         size = "default", type = "action", block = FALSE, disabled = FALSE,
                         value = FALSE),
  
-               bsButton("genBtn", "Generate KM Plot", icon = NULL, style = "success",
+               bsButton("genBtn", "Generate KM Plot", icon = NULL, style = "shinygeo-success",
                         size = "default", type = "action", block = FALSE, disabled = FALSE,
                         value = FALSE),
                shiny::tags$h4(class = "modal-title", title)

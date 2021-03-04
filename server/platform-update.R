@@ -112,7 +112,7 @@ observeEvent(input$updateButton, {
     
     } else {
       createAlert(session, "alertU", alertId = "Error-Update-Alert", 
-                  title = "Update failed, please try again later.", style = "danger", 
+                  title = "Update failed, please try again later.", style = "shinygeo-danger", 
                   content = "", append = FALSE, dismiss = TRUE) 
     }
     
