@@ -60,7 +60,7 @@ calc.columns <- function(this){
   }
 
   if (!is.null(title)) {
-   content = c("<p>Oops! <i>shinyGEO</i> could not find one or more columns for survival analysis in your data. Please try the following: <ul><li>View the table and select the relevant columns </li><li>If necessary, manually format the data by exporting the data, reformatting, and uploading your data back into <i>shinyGEO</i>.</li><li> Note that complete survival information is not available in all datasets.</ul></p>") 
+   content = c("<p>Oops! <i>shinyGEO</i> could not find one or more columns for survival analysis in your data. Please try the following: <ul><li>View the table and select the relevant columns </li><li>If necessary, manually format the data by exporting the data, reformatting, and uploading your data back into <i>shinyGEO</i>.</li><li> Note that many datasets do not include survival information.</ul></p>") 
     createAlert(session, "warningAlert", alertId = "warn3", title = title, content = content, 
 		style= 'shinygeo-danger', dismiss = TRUE, append = TRUE)
   }

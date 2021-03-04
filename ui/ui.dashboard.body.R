@@ -49,8 +49,7 @@ analyses.common = conditionalPanel(
 
        	div(style = "display:inline-block; width: 35%",
 		        conditionalPanel(condition = "input.tabs =='SurvivalAnalysis'",
-		        HTML("NEED genBSModal for survival analysis")
-		        #genBSModal("autogenModal","Survival Analyses","",size="large")
+		        genBSModal("autogenModal","Survival Analyses","mytrigger", size="large")
         	  )
 	     )
 	
@@ -142,10 +141,10 @@ body = dashboardBody(
    analyses.common,
 # 
     tabItems(
-   #    # First tab content
+       # First tab content
        tab.expression,
        tab.DE.analysis,
-   #   tab.survival.analysis,
+       tab.survival.analysis,
        tab.code,
        tab.about
      )

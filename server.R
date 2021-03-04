@@ -6,7 +6,6 @@ library(GEOquery)
 library(reshape2) ## needs to be loaded before GGally
 library(survival)
 library(shinyBS)
-#library(GGally)
 library(ggplot2)
 library(shinyAce)
 library(knitr)
@@ -27,7 +26,7 @@ shinyServer(function(input, output, session){
   source("server/server-report.R", local = TRUE)
   source("server/server-selection.R", local = TRUE)
   source("server/server-output.R", local = TRUE)
-  #source("server/server-survival.R", local = TRUE)
+  source("server/server-survival.R", local = TRUE)
   source("server/formatDE.R", local = TRUE)
   source("server/platform-update.R", local = TRUE)
   

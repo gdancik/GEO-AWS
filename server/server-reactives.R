@@ -293,7 +293,6 @@ geneNames <- reactive ({
   }
 
   gene.column = values.edit$platformGeneColumn
-  cat('gene.column = ', gene.column, '\n')
   
   if (is.null(gene.column)) {
     check.names = toupper(c("Gene Symbol", "GeneSymbol", 

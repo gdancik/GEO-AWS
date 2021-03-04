@@ -1,8 +1,9 @@
 
-TEMPDIR <- "cache" #either 'cache' for 'permanent' cache or tempdir() for session only cache
-TRACE <- TRUE
-ALLOW_UPDATE <- TRUE ## flag for update button display
+TEMPDIR <- tempdir() # #either 'cache' for 'permanent' cache or tempdir() for session only cache
+TRACE <- FALSE # set to true for debugging
+ALLOW_UPDATE <- FALSE ## flag for update button display
 
+# Functions below to be used for debugging
 shinycat <-function(...) {
 	if (TRACE) cat(...)
 }
