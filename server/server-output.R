@@ -204,7 +204,7 @@ observe ({
 
 updateSelectizeInput(session, inputId='GSE', label = "Accession Number", server = TRUE,
     choices =  data.frame(label = series.accession, value = series.accession, name = series.description),
-    selected = "GSE3524",
+    selected = '',
     options = list(
       #create = TRUE, persist = FALSE,
       render = I(
