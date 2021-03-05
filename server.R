@@ -14,6 +14,9 @@ library(shinyjs)
 library(survMisc)
 library(shinydashboard)
 
+library(BiocManager)
+options(repos = BiocManager::repositories())
+
 source("misc/stripchart2.R")
 source("misc/plot.shiny.km.R")
 
