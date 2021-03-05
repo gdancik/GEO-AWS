@@ -12,17 +12,16 @@ RUN apt-get update && apt-get install -y \
     libxt-dev \
     libssl-dev \
     libssh2-1-dev \
-    libssl1.0.0 \
     libmysqlclient-dev \
     libxml2-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/ \
     && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
-# basic shiny functionality
-RUN R -e "install.packages(c('shiny','DT', 'ggplot2', 'reshape2', 'survival', 'shinyBS', 'GGally', 'shinyAce', 'knitr', 'rmarkdown', 'RCurl', 'shinyjs', 'survMisc', 'shinydashboard'), repos='https://cloud.r-project.org/')" \
+# install required packagesy
+RUN R -e "install.packages(c('shiny','DT', 'ggplot2', 'reshape2', 'survival', 'shinyBS', 'shinyAce', 'RCurl', 'shinyjs', 'survMisc', 'shinydashboard', 'rvest', 'BiocManager'), repos='https://cloud.r-project.org/')" 
 
-RUN R -e "source('https://bioconductor.org/biocLite.R'); biocLite('GEOquery')" \
+RUN R -e "BiocManager::install('GEOquery')" 
 RUN rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
 # copy the app to the image

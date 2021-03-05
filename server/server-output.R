@@ -29,7 +29,7 @@ output$summary <-renderUI({
 	return(NULL)
   }
 
-  createAlert(session, "alert1", alertId = "Analysis-alert", title = "Please choose an analysis from the sidebar to continue...", style = "success",
+  createAlert(session, "alert1", alertId = "Analysis-alert", title = "Please choose an analysis from the sidebar to continue...", style = "shinygeo-success",
                content = "Your selected dataset has been downloaded successfully, and is summarized below. <p>Please select either <b>Differential Expression Analysis</b> or <b>Survival Analysis</b> from the sidebar to continue.</p>", append = FALSE, dismiss = TRUE) 
 
 
@@ -147,9 +147,11 @@ observe ({
     pl.accession = platforms.accession[keep]
     pl.description = platforms.description[keep]
     if (length(pl.accession) == 1) {
-      pl.selected = pl.accession
-      shinyjs::disable('platform')
-      choices = pl.selected
+      # updating selectizeInput can trigger an infinite reactive loop
+      # let's just hide it
+      shinyjs::hide('platform')
+      return(NULL)
+      
     } else {
       pl.selected = FALSE
       choices = data.frame(label = pl.accession, value = pl.accession, 
@@ -171,7 +173,7 @@ observe ({
                choices = choices,
                selected = pl.selected,
                options = pl.options 
-)
+  )
 
   if (!is.null(pl)) {
 	 d = dataInput()
@@ -183,11 +185,9 @@ observe ({
 
   	x = paste(x, collapse = "<br>")
 
-	if (!TEST.DATA) {
-    	createAlert(session, "alert1", alertId = "GPL-alert", 
+    createAlert(session, "alert1", alertId = "GPL-alert", 
 		title = "Please select a platform to continue", 
-		style = "success", content = x, append = TRUE, dismiss = FALSE) 
-  	}
+		style = "shinygeo-success", content = x, append = TRUE, dismiss = FALSE) 
   }
 })
 
@@ -204,6 +204,7 @@ observe ({
 
 updateSelectizeInput(session, inputId='GSE', label = "Accession Number", server = TRUE,
     choices =  data.frame(label = series.accession, value = series.accession, name = series.description),
+    selected = '',
     options = list(
       #create = TRUE, persist = FALSE,
       render = I(
@@ -215,7 +216,6 @@ updateSelectizeInput(session, inputId='GSE', label = "Accession Number", server 
       }"
     ))
 )
-
 
 ################################################
 ### Renders drop-down menu for variables/columns 

@@ -1,3 +1,59 @@
+
+/* shiny dashboard header */
+.navbar, .skin-blue .main-header .logo {
+    background-image: linear-gradient(#04519b,#044687 60%,#033769)
+}
+
+/* customize alerts as shinydashboard changes some defaults */
+
+.alert-shinygeo-primary {
+    color: #004085 !important;
+    background-color:#cce5ff !important;
+    border-color: #b8adff !important;
+}
+
+.shiny-notification-message, .alert-shinygeo-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #96cb6d;
+}
+
+.shiny-notification {
+    opacity: 1;
+}
+
+.shiny-notification h4 {
+    font-weight:600;
+}
+
+#shiny-notification-panel {
+    width:40%;
+    top:10%;
+}
+
+.alert-shinygeo-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert a {
+    color: black !important;
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+
 #bar-text{
 font-size: 19px;
 font-family:Verdana;

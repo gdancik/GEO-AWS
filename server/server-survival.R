@@ -1,6 +1,6 @@
 library(stringr)
 
-createAlert(session, "warningAlert", "survInstructions", title = "Survival Analysis", content = "<i>shinyGEO</i> will attempt to detect the time and outcome columns from the sample data. Please confirm the selection and then generate the KM plot by clicking on the button above. The KM plot will generate survival curves for samples with high expression to samples with low expression, using the median expression value as the cutoff. To use the best cutoff instead, select this option under the 'Survival analysis options' menu below ", style = "success", dismiss = TRUE) 
+createAlert(session, "warningAlert", "survInstructions", title = "Survival Analysis", content = "<i>shinyGEO</i> will attempt to detect the time and outcome columns from the sample data. Please confirm the selection and then generate the KM plot by clicking on the button above. The KM plot will generate survival curves for samples with high expression to samples with low expression, using the median expression value as the cutoff. To use the best cutoff instead, select this option under the 'Survival analysis options' menu below ", style = "shinygeo-success", dismiss = TRUE) 
 
 #Auto-Generation of columns
 ## Functions for autogen
@@ -35,7 +35,7 @@ calc.columns <- function(this){
 
   if(length(x.time) > 1){
     createAlert(session, "warningAlert", alertId = "warn1", title = "Warning: multiple time columns found",
-                content = paste(c("<strong>Columns found</strong>: ", paste(x.time,collapse=", "),"<br>Please check that the selection is correct.")), style= 'danger', dismiss = TRUE, append = TRUE)
+                content = paste(c("<strong>Columns found</strong>: ", paste(x.time,collapse=", "),"<br>Please check that the selection is correct.")), style= 'shinygeo-danger', dismiss = TRUE, append = TRUE)
     x.time = x.time[1]
   }
 
@@ -43,7 +43,7 @@ calc.columns <- function(this){
   {
    cat("multiple outcomes...\n")
     createAlert(session, "warningAlert", alertId = "warn2", title = "Warning: multiple outcome columns Found",
-                content = paste(c("<strong>Columns Found</strong>: ", paste(y.outcome,collapse=", "),"<br>Please check that the selection is correct.")), style= 'danger', dismiss = TRUE, append = TRUE)
+                content = paste(c("<strong>Columns Found</strong>: ", paste(y.outcome,collapse=", "),"<br>Please check that the selection is correct.")), style= 'shinygeo-danger', dismiss = TRUE, append = TRUE)
     y.outcome = y.outcome[1]
   }
 
@@ -60,9 +60,9 @@ calc.columns <- function(this){
   }
 
   if (!is.null(title)) {
-   content = c("<p>Oops! <i>shinyGEO</i> could not find one or more columns for survival analysis in your data. Please try the following: <ul><li>View the table and select the relevant columns </li><li>If necessary, manually format the data by exporting the data, reformatting, and uploading your data back into <i>shinyGEO</i>.</li><li> Note that complete survival information is not available in all datasets.</ul></p>") 
+   content = c("<p>Oops! <i>shinyGEO</i> could not find one or more columns for survival analysis in your data. Please try the following: <ul><li>View the table and select the relevant columns </li><li>If necessary, manually format the data by exporting the data, reformatting, and uploading your data back into <i>shinyGEO</i>.</li><li> Note that many datasets do not include survival information.</ul></p>") 
     createAlert(session, "warningAlert", alertId = "warn3", title = title, content = content, 
-		style= 'danger', dismiss = TRUE, append = TRUE)
+		style= 'shinygeo-danger', dismiss = TRUE, append = TRUE)
   }
  
   if (!have.time) x.time = NA
@@ -335,7 +335,7 @@ main.gen <- function(this,columns.data){
     	    setTimeTable()    
 	} else if (!values.edit$autogen)  {
           createAlert(session, "warningAlert", alertId = "warnSelect", title = "Time and Outcome Selection",
-                content = "Please select an appropriate time and outcome column, and event values.", style= 'danger', dismiss = TRUE, append = TRUE)
+                content = "Please select an appropriate time and outcome column, and event values.", style= 'shinygeo-danger', dismiss = TRUE, append = TRUE)
           shinyjs::disable("genBtn")
 	  if (is.null(input$columnEvent1) | is.null(input$columnEvent0)) {
 		setTimeTable()
@@ -384,7 +384,7 @@ main.gen <- function(this,columns.data){
 		 check = intersect(yes, no)
 		 if (length(check) > 0) {
           		createAlert(session, "warningAlert", alertId = "warnYesNo", title = "Event Selection Error",
-                content = "At least one value was selected for both Event:Yes and Event: No. Make sure that the Yes and No events are distinct.", style= 'danger', dismiss = TRUE, append = TRUE)
+                content = "At least one value was selected for both Event:Yes and Event: No. Make sure that the Yes and No events are distinct.", style= 'shinygeo-danger', dismiss = TRUE, append = TRUE)
           shinyjs::disable("genBtn")
 			return(NULL)
 
@@ -444,7 +444,7 @@ main.gen <- function(this,columns.data){
     		       createAlert(session, "alert2", alertId = "kmAlert", 
 			title = "Survival Analysis",
 			content = content,
-			style= 'danger', dismiss = TRUE, append = TRUE)
+			style= 'shinygeo-danger', dismiss = TRUE, append = TRUE)
 		       }
 	             }
                  })

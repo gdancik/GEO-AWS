@@ -1,29 +1,14 @@
-TRACE <- FALSE 
-ALLOW_UPDATE <- TRUE ## flag for update button display
-
-shinycat <<-function(...) {
-	if (TRACE) cat(...)
-}
-shinyprint <<-function(...) print(...)
-
 shinycat("begin source server.R\n")
-source("server/settings.R")
 
-
-
-# DT uses devtools::install_github('rstudio/DT', ref = "f3e86a6")
-library(DT)  ## tested on development version 0.1.32
+library(DT) 
 library(shiny)
 library(GEOquery)
-library(Biobase)
 library(reshape2) ## needs to be loaded before GGally
 library(survival)
 library(shinyBS)
-library(GGally)
 library(ggplot2)
 library(shinyAce)
 library(knitr)
-library(rmarkdown)
 library(RCurl)
 library(shinyjs)
 library(survMisc)
@@ -33,6 +18,7 @@ source("misc/stripchart2.R")
 source("misc/plot.shiny.km.R")
 
 shinyServer(function(input, output, session){
+  
   source("server/server-reactives.R", local = TRUE)
   source("server/server-clinical.R", local = TRUE)
   source("server/server-merge.R", local = TRUE)
@@ -43,4 +29,5 @@ shinyServer(function(input, output, session){
   source("server/server-survival.R", local = TRUE)
   source("server/formatDE.R", local = TRUE)
   source("server/platform-update.R", local = TRUE)
+  
 })

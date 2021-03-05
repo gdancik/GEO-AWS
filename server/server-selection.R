@@ -1,4 +1,6 @@
-createAlert(session,"selectionAlert1",content = "<H4>Directions</H4><p> Select a subset of samples to analyze by specifying selection criteria using the drop down boxes below, and then click the 'Apply Selection Criteria' button. <br>For more advanced selections, export and update the data table using the 'Data Export' option</br></p>", dismiss=FALSE) 
+createAlert(session,"selectionAlert1",
+            content = "<H4>Directions</H4><p> Select a subset of samples to analyze by specifying selection criteria using the drop down boxes below, and then click the 'Apply Selection Criteria' button. <br>For more advanced selections, export and update the data table using the 'Data Export' option</br></p>", 
+            style = "shinygeo-primary", dismiss=FALSE) 
 
 
 shinyjs::disable("btnSelection")
@@ -169,7 +171,7 @@ shinyjs::onclick("btnSelection", {
   
   content = paste0("<H4>Selection Criteria Applied (", sum(keep), " samples selected)</H4><p>", sel1, "<p>",
 	           "To clear selection criteria, select 'Reset' under the 'Data Export' tab</br>" ) 
-  createAlert(session,"selectionAlert2",content = content, dismiss = FALSE, style = "danger", append = FALSE) 
+  createAlert(session,"selectionAlert2",content = content, dismiss = FALSE, style = "shinygeo-danger", append = FALSE) 
 
  shinyjs::disable("btnSelection")
  

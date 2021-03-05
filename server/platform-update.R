@@ -22,7 +22,7 @@ observeEvent(input$updateButton, {
     tryCatch({
       # get platform data
       createAlert(session, "alertU", alertId = "Platform-Update-Alert", 
-                  title = "Current Status", style = "info",
+                  title = "Current Status", style = "shinygeo-primary",
                   content = "Updating platform (GPL) data from GEO", append = FALSE, dismiss = FALSE) 
       
       total_cnt <- read_html("https://www.ncbi.nlm.nih.gov/geo/browse/?view=platforms") %>% 
@@ -38,7 +38,7 @@ observeEvent(input$updateButton, {
 
       # get series data
       createAlert(session, "alertU", alertId = "Series-Update-Alert", 
-                  title = "Current Status", style = "info",
+                  title = "Current Status", style = "shinygeo-primary",
                   content = "Updating series (GSE) data from GEO. This may take a minute, please be patient...", append = FALSE, dismiss = FALSE)
       
       series_total <- read_html("https://www.ncbi.nlm.nih.gov/geo/browse/") %>% 
@@ -112,7 +112,7 @@ observeEvent(input$updateButton, {
     
     } else {
       createAlert(session, "alertU", alertId = "Error-Update-Alert", 
-                  title = "Update failed, please try again later.", style = "danger", 
+                  title = "Update failed, please try again later.", style = "shinygeo-danger", 
                   content = "", append = FALSE, dismiss = TRUE) 
     }
     
