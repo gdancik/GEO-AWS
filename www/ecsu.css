@@ -53,6 +53,20 @@
     border-color: #2e6da4;
 }
 
+.hidden-on-start {
+    display:none;
+}
+
+.noclick {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999; /* or maybe higher */
+
+    background-color: transparent;
+}
 
 #bar-text{
 font-size: 19px;

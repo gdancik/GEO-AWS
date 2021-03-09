@@ -3,11 +3,7 @@
 ############################################################
               ### add a contional panel that only show this once loaded
 tab.expression = tabItem(tabName = "Home",
-		 conditionalPanel(condition = "output.sidebarDisplay=='ALL'",
-                     #  h4("Determine if these samples are fair to compare by observing the graphical appearance & profiles values."),
-
-#         <h3 class='panel-title' style = \'font-weight: bold\'>Primary Contributors</h3>
-
+		 div(class = "hidden-on-start",
 
 		div(class = 'panel panel-default', #style = "display: inline-block;",
 			div(class = 'panel-heading',

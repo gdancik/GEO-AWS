@@ -41,7 +41,6 @@ calc.columns <- function(this){
 
   if(length(y.outcome) > 1)
   {
-   cat("multiple outcomes...\n")
     createAlert(session, "warningAlert", alertId = "warn2", title = "Warning: multiple outcome columns Found",
                 content = paste(c("<strong>Columns Found</strong>: ", paste(y.outcome,collapse=", "),"<br>Please check that the selection is correct.")), style= 'shinygeo-danger', dismiss = TRUE, append = TRUE)
     y.outcome = y.outcome[1]

@@ -3,6 +3,7 @@ library(shinyAce)
 library(RCurl)
 library(shinyBS)
 library(shinydashboard)
+library(shinyFiles)
 
 source("misc/html.R")
 source("misc/bsModal.R")

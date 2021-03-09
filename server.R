@@ -14,6 +14,7 @@ library(shinyjs)
 library(survMisc)
 library(shinydashboard)
 
+
 library(BiocManager)
 options(repos = BiocManager::repositories())
 
@@ -32,5 +33,8 @@ shinyServer(function(input, output, session){
   source("server/server-survival.R", local = TRUE)
   source("server/formatDE.R", local = TRUE)
   source("server/platform-update.R", local = TRUE)
+  source("server/server-cache.R", local = TRUE)
+  
+  shinyjs::runjs('document.getElementById("startup").remove();')
   
 })
