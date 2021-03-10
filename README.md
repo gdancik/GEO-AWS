@@ -1,7 +1,7 @@
 # shinyGEO
 shinyGEO is a web-based tool that allows a user to download the expression and sample data from a [Gene Expression Omnibus](http://www.ncbi.nlm.nih.gov/geo/browse/) dataset, select a gene of interest, and perform a survival or differential expression analysis using the available data. For both analyses, shinyGEO produces publication-ready graphics and generates R code ensuring that all analyses are reproducible. The tool is developed using shiny, a web application framework for R, a language for statistical computing and graphics.
 
-**News:** *shinyGEO* now allows for caching of GEO datasets and storage of data updates using docker volumes. Caching will result in much faster run times for commonly analyzed series and platforms.
+**Latest updates:** *shinyGEO* now allows for caching of GEO datasets and storage of data updates using docker volumes. Caching will result in much faster run times for commonly analyzed series and platforms.
 
 ## Official Website
 http://gdancik.github.io/shinyGEO/
@@ -10,9 +10,11 @@ http://gdancik.github.io/shinyGEO/
 
 1. Download docker from https://www.docker.com/get-started
 
-2. Pull the docker image by running the following from your terminal (to ensure that you are using the the most up-to-date version of *shinyGEO*, you should do this periodically). 		
+2. Pull the docker image by running the following from your terminal (**Note:** you should do this periodically to ensure that you are using the the most up-to-date version of *shinyGEO*). 		
 
-    `docker pull gdancik/shinygeo`
+    ```
+    docker pull gdancik/shinygeo
+    ```
 
 3. Run *shinyGEO* by using the command: 
 

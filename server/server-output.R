@@ -2,8 +2,8 @@
 # display functions for conditional panels              ##
 ##########################################################
 
-load("series/series.RData")
-load("platforms/platforms.RData")
+load("datasets/series.RData")
+load("datasets/platforms.RData")
 
 m = matrix(rnorm(1000), ncol=20)
 rownames(m) = paste0("row", 1:nrow(m))
