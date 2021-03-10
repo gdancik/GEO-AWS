@@ -17,7 +17,7 @@ http://gdancik.github.io/shinyGEO/
 3. Run *shinyGEO* by using the command: 
 
     ```
-    docker run -it -p 3838:3838 --volume shinygeo-cache:/root/shinyGEO/cache gdancik/shinygeo --volume shinygeo-series:/root/shinyGEO/series --volume shinygeo-platform:/root/shinyGEO/platform
+    docker run -it -p 3838:3838 --volume shinygeo-cache:/root/shinyGEO/cache --volume shinygeo-data:/root/shinyGEO/datasets --volume shinygeo-platform:/root/shinyGEO/platform gdancik/shinygeo
     ```
 
 4. View *shinyGEO* by opening a web browser and entering *localhost:3838* into the address bar.
