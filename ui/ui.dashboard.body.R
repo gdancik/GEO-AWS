@@ -5,6 +5,7 @@
 source("ui/ui.tab.expression.R")
 source("ui/ui.tab.analyses.R")
 source("ui/ui.tab.reproducible.R")
+source("ui/ui.tab.cache.R")
 source("ui/ui.tab.about.R")
 source("misc/html.R")
 
@@ -57,7 +58,7 @@ analyses.common = conditionalPanel(
 
 body = dashboardBody(
     
-  conditionalPanel(condition = "input.tabs != 'About' & input.tabs != 'Code'",
+  conditionalPanel(condition = "input.tabs != 'About' & input.tabs != 'Code' & input.tabs != 'Cache'",
                     bsAlert("alert1"),
                     bsAlert("alertU"),
                     uiOutput("busy")
@@ -146,6 +147,7 @@ body = dashboardBody(
        tab.DE.analysis,
        tab.survival.analysis,
        tab.code,
+       tab.cache,
        tab.about
      )
 

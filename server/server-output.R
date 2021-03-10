@@ -2,8 +2,8 @@
 # display functions for conditional panels              ##
 ##########################################################
 
-load("series/series.RData")
-load("platforms/platforms.RData")
+load("datasets/series.RData")
+load("datasets/platforms.RData")
 
 m = matrix(rnorm(1000), ncol=20)
 rownames(m) = paste0("row", 1:nrow(m))
@@ -74,14 +74,14 @@ output$shinyTitle = renderText(shinyTitle)
 ######################################################
 
 # when platform info is availabe the other drop-down boxes are shown in the sidebar panel
-sidebarDisplay <-reactive({
-  if (is.null(dataInput())) return ("GSE-ONLY")
-  if (is.null(platInfo())) return("PLATFORM")
-  return("ALL")
+observe({
+  if (is.null(dataInput())) return ()
+  if (is.null(platInfo())) {
+    shinyjs::runjs('document.getElementById("platform-div").style.display = "inline-block"')
+    return()
+  }
+  shinyjs::runjs('$(".hidden-on-start").css("display", "block");')
 })
-
-output$sidebarDisplay <- renderText(sidebarDisplay())
-outputOptions(output, 'sidebarDisplay', suspendWhenHidden=FALSE)
 
 
 observe({
@@ -186,8 +186,10 @@ observe ({
   	x = paste(x, collapse = "<br>")
 
     createAlert(session, "alert1", alertId = "GPL-alert", 
-		title = "Please select a platform to continue", 
-		style = "shinygeo-success", content = x, append = TRUE, dismiss = FALSE) 
+		  title = "Please select a platform to continue", 
+		  style = "shinygeo-success", content = x, append = TRUE, dismiss = FALSE)
+    
+    shinyjs::enable('platform')
   }
 })
 

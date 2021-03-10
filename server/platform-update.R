@@ -85,8 +85,8 @@ observeEvent(input$updateButton, {
       #file.rename("series/series.RData", "series/backup-series.RData")
       
       # save platdorm and series data 
-      save(platforms.accession, platforms.description, updateDate, file = "platforms/platforms.RData")
-      save(series.accession, series.description, file = "series/series.RData")
+      save(platforms.accession, platforms.description, updateDate, file = "datasets/platforms.RData")
+      save(series.accession, series.description, file = "datasets/series.RData")
   
       cat("Update successful")
       createAlert(session, "alertU", alertId = "Success-Update-Alert", 

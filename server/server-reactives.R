@@ -3,6 +3,15 @@
 #############################################################################
 shinycat("begin server-reactives.R\n")
 
+GSE_cached <- function(gse, dir = TEMPDIR) {
+ s <- Sys.glob(paste0(dir, '/', gse, '[_-]*')) 
+ length(s) > 0
+}
+
+GPL_cached <- function(gpl, dir = TEMPDIR) {
+  file.exists(paste0(dir, '/', gpl, '.soft'))
+}
+
 # disable a few buttons initially
 shinyjs::disable("ClinicalReset")
 
@@ -99,24 +108,24 @@ observeEvent(input$tabs, {
 
   if (input$tabs == "DifferentialExpressionAnalysis" | input$tabs == "SurvivalAnalysis") {
 
-	if (input$tabs == "DifferentialExpressionAnalysis") {
-		closeAlert(session, alertId = "SelectKM")
-	}
+	  if (input$tabs == "DifferentialExpressionAnalysis") {
+		  closeAlert(session, alertId = "SelectKM")
+	  }
 
   	if (input$selectGenes == "") {
-	  createAlert(session, "alert1", alertId = "SelectGene-alert", 
-		title = "Please select a probe/gene to continue...", 
-		style = "shinygeo-success",
+	    createAlert(session, "alert1", alertId = "SelectGene-alert", 
+		  title = "Please select a probe/gene to continue...", 
+		  style = "shinygeo-success",
               	content = "To search by a different feature, click on the link below", 
-		append = FALSE, dismiss = TRUE) 
-	  if(values.edit$platformGeneColumn=="ID") {
-		content = paste0("A gene symbol for this platform could not be found. ",
-		"You may view the platform data below to select a feature column if desired") 
-		createAlert(session, "alert2", alertId = "geneSymbolAlert", 
-			title = "Gene symbol not found", style = "shinygeo-danger",
+		            append = FALSE, dismiss = TRUE) 
+	    if(values.edit$platformGeneColumn=="ID") {
+		    content = paste0("A gene symbol for this platform could not be found. ",
+		    "You may view the platform data below to select a feature column if desired") 
+		    createAlert(session, "alert2", alertId = "geneSymbolAlert", 
+			  title = "Gene symbol not found", style = "shinygeo-danger",
 	  		content = content, append = FALSE, dismiss = TRUE)
-	   }
-        }
+	    }
+    }
   } 
   if (input$tabs == "SurvivalAnalysis") {
 	closeAlert(session, alertId = "SelectGroups")
@@ -128,16 +137,24 @@ observeEvent(input$tabs, {
   }
 
   if (input$tabs != "Home") {
-	closeAlert(session, alertId = "Analysis-alert")
-  	shinyjs::disable('GSE')
-  	shinyjs::disable('platform')
-  	shinyjs::disable('submitButton')
+	  closeAlert(session, alertId = "Analysis-alert")
   } else {
     	#shinyjs::enable('platform')  
-	closeAlert(session, alertId = "SelectGene-alert")
-	closeAlert(session, alertId = "SelectGroups")
+	  closeAlert(session, alertId = "SelectGene-alert")
+	  closeAlert(session, alertId = "SelectGroups")
   } 
 
+  if (input$tabs %in% c("Cache", "About")) {
+    shinyjs::disable('GSE')
+    shinyjs::disable('platform')
+    shinyjs::disable('submitButton')
+  } else if (input$tabs == "Home" && is.null(dataInput())) {
+    shinyjs::enable('GSE')
+    shinyjs::enable('submitButton')
+  } else if (input$tabs == "Home" && is.null(exprInput())) {
+    shinyjs::enable('platform')
+  }
+  
 })
 
 
@@ -190,7 +207,7 @@ dataInput <- reactive({
   # reset variables 
   reactiveValues.reset()
 
-  # Runs the intial input once the button is pressed from within the 
+  # Runs the initial input once the button is pressed from within the 
   # reactive statement
 
   if (is.null(isolate(input$GSE))) {
@@ -209,6 +226,10 @@ dataInput <- reactive({
 
   content = "Downloading Series (GSE) data from GEO" 
 
+   if (GSE_cached(GSE)) {
+     content <- "Retrieving GEO Series (GSE) data from cache"
+   }
+  
    createAlert(session, "alert1", alertId = "GSE-progress-alert", title = "Current Status", style = "shinygeo-primary",
               content = content , append = TRUE, dismiss = FALSE) 
 
@@ -263,9 +284,15 @@ platInfo <- reactive({
   shinycat("In platInfo reactive...\n")
   if (is.null(Platforms()) | is.null(platformIndex())) return (NULL)
 
+  content = "Downloading GEO platform (GPL) data from GEO"
+  
+  if (GPL_cached(Platforms()[platformIndex()])) {
+    content = paste0("Retreiving GEO platform (GPL) data from cache")
+  }
+  
   closeAlert(session, "GPL-alert")
   createAlert(session, "alert1", alertId = "GPL-alert", title = "Current Status", style = "shinygeo-primary",
-              content = "Downloading platform (GPL) data from GEO", append = TRUE, dismiss = FALSE) 
+              content = content, append = TRUE, dismiss = FALSE) 
   
   a = isolate(Platforms())
   b = isolate(platformIndex())

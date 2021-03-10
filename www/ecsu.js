@@ -1,13 +1,24 @@
 
 var x;
 $( document ).ready(function() {
-    var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
-    // Opera 8.0+ (UA detection to detect Blink/v8-powered Opera)
-    var isChrome = !!window.chrome && !isOpera;   // Chrome 1+
-    if (!isChrome) {
-       // alert( "For the best user experience, we recommend using the Google Chrome browswer, available at:\nhttp://www.google.com/chrome/");
-    } 
-  
+
+    div = document.createElement('div');
+    div.id = 'startup';
+    div.style.width = "100%";
+    div.style.height = "100%";
+    div.style.backgroundColor = 'white'; //rgb(0,38,73)';
+        //"<div id = 'startup2' style = 'position:fixed;top:40%; width:100%; color:white;'>" + 
+    //                "<h2 style = 'width:80%;margin-left:auto;margin-right:auto;'> Please wait... </h2></center> </div>";
+    div.innerHTML = '<div class=\"progress\" style=\"height:25px !important; position:absolute; top:40%; width:90%; margin-left:5%;\"><div class=\"progress-bar progress-bar-striped active\" role=\"progressbar\" aria-valuenow=\"40\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width:100%\">' +
+         '<span id=\"bar-text\">Loading <i>shinyGEO</i>, please wait ...</span></div></div>';
+    
+    div.style.position = 'fixed';
+    div.style.top = '1%';
+    div.style.zIndex = 900;
+
+    document.body.appendChild(div);
+
+
 $('#manuBtn').click(function(){
 	x = 1;
         $('#autogenModal').modal('hide').one('hidden.bs.modal',function(){

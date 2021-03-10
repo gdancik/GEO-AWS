@@ -3,6 +3,11 @@ createAlert(session,"ioAlert1",
             content = "<H4>Directions</H4><p>1. Download the current clinical data you are working with, it will be saved in your 'Downloads' folder.<br>2. Edit the dataset, then save your changes.<br>3. Then upload your dataset back to <i>shinyGEO</i>.</p>",
             style = "shinygeo-primary", dismiss=FALSE)
 
+createAlert(session,"cacheAlert",
+            content = "<H4>Cache</H4><p>Previously downloaded GEO datasets are stored in a local
+                   cache for faster analyses. Use this page to clear the cache or to selectively remove files, which is recommended
+                   if you are getting errors when loading a dataset.",
+                   style = "shinygeo-primary", dismiss=FALSE)
 
 shinyjs::onclick("ClinicalReset", {
   values.edit$table <- as.data.frame(pData(phenoData(object = dataInput()[[platformIndex()]])))
