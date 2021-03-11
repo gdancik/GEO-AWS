@@ -1,7 +1,14 @@
 # *shinyGEO* - a web-based application for analyzing gene expression omnibus datasets
+
 *shinyGEO* (http://gdancik.github.io/shinyGEO/) is a web-based tool that allows a user to download the expression and sample data from a [Gene Expression Omnibus](http://www.ncbi.nlm.nih.gov/geo/browse/) dataset, select a gene of interest, and perform a survival or differential expression analysis using the available data. For both analyses, *shinyGEO* produces publication-ready graphics and generates R code ensuring that all analyses are reproducible. The tool is developed using shiny, a web application framework for R, a language for statistical computing and graphics.
 
 **Latest updates:** *shinyGEO* now allows for caching of GEO datasets and storage of data updates using docker volumes. Caching will result in much faster run times for commonly analyzed series and platforms.
+
+## Publications
+
+If you use *shinyGEO* in your work, please cite the following *Bioinformatics* manuscript ([link](http://bioinformatics.oxfordjournals.org/content/early/2016/08/07/bioinformatics.btw519.abstract)):
+
+Dumas J, Gargano MA, Dancik GM. shinyGEO: a web-based application for analyzing Gene Expression Omnibus datasets. *Bioinformatics*. 2016 Dec 1;32(23):3679-3681. 
 
 ## The preferred way of running *shinyGEO* locally is through docker
 
@@ -37,12 +44,21 @@ docker volume rm shinygeo-datasets
 
 ## Alternatives for running *shinyGEO*
 
-While using *docker* is preferred, you can also run *shinyGEO* from the web by following the links from http://gdancik.github.io/shinyGEO/.
+While using *docker* is preferred, you can also run *shinyGEO* from the web at [https://gdancik.shinyapps.io/shinyGEO/](https://gdancik.shinyapps.io/shinyGEO/).
 
-## Contributors
-- Main contributors: Jasmine Dumas, Michael Gargano, Garrett M. Dancik, PhD
-- Additional contributors: Nataliia Romanenko, Ken-Heng Liao, Gregory Harper, Brandon Spratt
+## About
 
-## Acknowledgements
-This work was supported, in part, by Google Summer of Code funding to JD in 2015. MG, KHL, GH, and BS contributed as part of an independent study in Computer Science / Bioinformatics while undergraduate students at Eastern Connecticut State University, Willimantic, CT,  USA.
+*shinyGEO* is a project of the [Bioinformatics Laboratory](https://gdancik.github.io/bioinformatics) at [Eastern Connecticut State University](https://www.easternct.edu). 
 
+   - Main contributors: Jasmine Dumas, Michael Gargano*, Garrett M. Dancik, PhD
+   - Additional contributors: Nataliia Romanenko*, Ken-Heng Liao*, Gregory Harper*, Brandon Spratt* 
+
+An asterisk (\*) denotes an undergraduate Computer Science major from Eastern.
+
+## Funding
+
+This work was supported, in part, by Google Summer of Code funding to JD in 2015. 
+
+### Page theme
+
+This page uses a slightly modified version of the Cayman theme ([https://github.com/pages-themes/cayman](https://github.com/pages-themes/cayman))
