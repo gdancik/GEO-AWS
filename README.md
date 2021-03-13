@@ -23,7 +23,7 @@ Dumas J, Gargano MA, Dancik GM. shinyGEO: a web-based application for analyzing 
 3. Run *shinyGEO* by copying and pasting the command to your terminal: 
 
     ```
-    docker run -it -p 3838:3838 --volume shinygeo-cache:/root/shinyGEO/cache --volume shinygeo-data:/root/shinyGEO/datasets --volume shinygeo-platform:/root/shinyGEO/platform gdancik/shinygeo
+    docker run -it -p 3838:3838 --volume shinygeo-cache:/root/shinyGEO/cache --volume shinygeo-data:/root/shinyGEO/datasets gdancik/shinygeo
     ```
 
 4. View *shinyGEO* by opening a web browser and entering *localhost:3838* into the address bar.
