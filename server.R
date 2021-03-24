@@ -7,6 +7,7 @@ library(reshape2) ## needs to be loaded before GGally
 library(survival)
 library(shinyBS)
 library(ggplot2)
+library(GGally)
 library(shinyAce)
 library(knitr)
 library(RCurl)
